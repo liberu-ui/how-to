@@ -100,7 +100,7 @@ import {
     Card, CardHeader, CardCollapse, CardControl, CardContent,
     CardFooter, CardFooterItem
 } from '@enso-ui/card/bulma';
-import { Confirmation }  from '@enso-ui/confirmation/bulma';
+import Confirmation  from '@enso-ui/confirmation/bulma';
 import { Uploader } from '@enso-ui/uploader';
 import 'video.js/dist/video-js.css';
 
