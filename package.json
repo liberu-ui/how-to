@@ -42,7 +42,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.2.0",
     "@fortawesome/free-solid-svg-icons": "^5.2.0",
     "v-tooltip": "^2.0.0-rc.32",
-    "video.js": "^7.6",
+    "video.js": "^6.6 || ^7.0",
     "vue": "^2.5.16",
     "vue-video-player": "^5.0"
   }
