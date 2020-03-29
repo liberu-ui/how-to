@@ -14,16 +14,16 @@
                     </span>
                 </card-control>
                 <card-control v-if="!video.poster && canAccess('howTo.posters.store')">
-                    <uploader :url="route('howTo.posters.store')"
+                    <uploader class="has-padding-top-small"
+                        :url="route('howTo.posters.store')"
                         :params="{ videoId: video.id }"
                         file-key="poster"
                         @upload-successful="video.poster = $event">
                         <template v-slot:control="{ controlEvents }">
-                            <a v-on="controlEvents">
-                                <span class="icon">
-                                        <fa :icon="['far', 'image']"/>
-                                </span>
-                            </a>
+                            <span class="icon"
+                                v-on="controlEvents">
+                                <fa :icon="['far', 'image']"/>
+                            </span>
                         </template>
                     </uploader>
                 </card-control>
@@ -98,9 +98,9 @@ import { videoPlayer } from 'vue-video-player';
 import 'vue-video-player/src/custom-theme.css';
 import {
     Card, CardHeader, CardCollapse, CardControl, CardContent,
-    CardFooter, CardFooterItem
+    CardFooter, CardFooterItem,
 } from '@enso-ui/card/bulma';
-import Confirmation  from '@enso-ui/confirmation/bulma';
+import Confirmation from '@enso-ui/confirmation/bulma';
 import { Uploader } from '@enso-ui/uploader';
 import 'video.js/dist/video-js.css';
 
