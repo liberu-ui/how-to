@@ -183,7 +183,7 @@ library.add([faPlus, faUpload, faBan, faCheck, faPencilAlt, faTags]);
 export default {
     name: 'Index',
 
-    inject: ['canAccess', 'errorHandler', 'i18n', 'route'],
+    inject: ['canAccess', 'errorHandler', 'i18n', 'route', 'toastr'],
 
     directives: { focus },
 
@@ -307,7 +307,7 @@ export default {
         update() {
             axios.patch(this.route('howTo.videos.update', this.video.id), this.video)
                 .then(({ data }) => {
-                    this.$toastr.success(data.message);
+                    this.toastr.success(data.message);
                     this.reset();
                 }).catch(this.errorHandler);
         },
