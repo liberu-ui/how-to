@@ -109,7 +109,7 @@ library.add([faTrashAlt, faInfo, faTags, faEdit, faImage, faInfoCircle]);
 export default {
     name: 'HowToVideo',
 
-    inject: ['canAccess', 'errorHandler', 'i18n', 'route'],
+    inject: ['canAccess', 'errorHandler', 'i18n', 'route', 'toastr'],
 
     directives: { tooltip: VTooltip },
 
@@ -166,14 +166,14 @@ export default {
         destroyPoster() {
             axios.delete(this.route('howTo.posters.destroy', this.video.poster.id))
                 .then(({ data }) => {
-                    this.$toastr.success(data.message);
+                    this.toastr.success(data.message);
                     this.video.poster = null;
                 }).catch(this.errorHandler);
         },
         destroyVideo() {
             axios.delete(this.route('howTo.videos.destroy', this.video.id))
                 .then(({ data }) => {
-                    this.$toastr.success(data.message);
+                    this.toastr.success(data.message);
                     this.$emit('delete');
                 }).catch(this.errorHandler);
         },
