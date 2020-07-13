@@ -282,7 +282,7 @@ export default {
             });
         },
         addTag() {
-            if (!this.tagIsNew) {
+            if (!this.tagIsNew || !this.canAccess('howTo.tags.store')) {
                 return;
             }
 
