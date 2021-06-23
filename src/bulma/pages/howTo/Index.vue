@@ -144,7 +144,7 @@
                     v-model="query"
                     @keypress.enter="addTag"
                     v-else>
-                <div class="field is-grouped is-grouped-multiline has-margin-top-medium">
+                <div class="field is-grouped is-grouped-multiline mt-2">
                     <div class="control"
                         v-for="tag in filteredTags"
                         :key="tag.id">
@@ -217,7 +217,7 @@ export default {
                 ? this.videos
                 : this.videos.filter(({ tagList }) => tagList
                     .filter(
-                        tagId => this.selectedTags.findIndex(({ id }) => tagId === id) !== -1,
+                        (tagId) => this.selectedTags.findIndex(({ id }) => tagId === id) !== -1,
                     ).length === this.selectedTags.length);
         },
         filteredTags() {
