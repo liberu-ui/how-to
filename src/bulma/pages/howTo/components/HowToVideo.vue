@@ -2,7 +2,7 @@
     <card>
         <card-header>
             <template v-slot:title>
-                <span class="icon is-small has-margin-right-small">
+                <span class="icon is-small mr-1">
                     <fa icon="video"/>
                 </span>
                 {{ video.name }}
@@ -14,7 +14,7 @@
                     </span>
                 </card-control>
                 <card-control v-if="!video.poster && canAccess('howTo.posters.store')">
-                    <uploader class="has-padding-top-small"
+                    <uploader class="pt-1"
                         :url="route('howTo.posters.store')"
                         :params="{ videoId: video.id }"
                         file-key="poster"

@@ -78,7 +78,7 @@
             </div>
         </div>
         <div class="column is-one-quarter">
-            <a class="button is-info is-fullwidth has-margin-bottom-medium"
+            <a class="button is-info is-fullwidth mb-2"
                 :disabled="addingVideo || editingVideo"
                 @click="addingVideo = true"
                 v-if="canAccess('howTo.videos.store')">
@@ -118,14 +118,14 @@
                                     <fa icon="pencil-alt"/>
                                 </span>
                             </a>
-                            <a class="button is-small is-outlined is-success has-margin-left-small"
+                            <a class="button is-small is-outlined is-success ml-1"
                                 v-if="editingTag"
                                 @click="editingTag = false; updateTag()">
                                 <span class="icon is-small">
                                     <fa icon="check"/>
                                 </span>
                             </a>
-                            <a class="button is-small is-outlined has-margin-left-small"
+                            <a class="button is-small is-outlined ml-1"
                                 v-if="editingTag"
                                 @click="editingTag = false">
                                 <span class="icon is-small">
