@@ -1,13 +1,13 @@
 <template>
     <card>
         <card-header>
-            <template v-slot:title>
+            <template #:title>
                 <span class="icon is-small mr-1">
                     <fa icon="video"/>
                 </span>
                 {{ video.name }}
             </template>
-            <template v-slot:controls>
+            <template #:controls>
                 <card-control v-tooltip="video.description">
                     <span class="icon">
                         <fa icon="info-circle"/>
@@ -19,7 +19,7 @@
                         :params="{ videoId: video.id }"
                         file-key="poster"
                         @upload-successful="video.poster = $event">
-                        <template v-slot:control="{ controlEvents }">
+                        <template #:control="{ controlEvents }">
                             <span class="icon"
                                 v-on="controlEvents">
                                 <fa :icon="['far', 'image']"/>
@@ -109,8 +109,6 @@ library.add([faTrashAlt, faInfo, faTags, faEdit, faImage, faInfoCircle]);
 export default {
     name: 'HowToVideo',
 
-    inject: ['canAccess', 'errorHandler', 'i18n', 'route', 'toastr'],
-
     directives: { tooltip: VTooltip },
 
     components: {
@@ -125,6 +123,8 @@ export default {
         CardContent,
         Uploader,
     },
+
+    inject: ['canAccess', 'errorHandler', 'i18n', 'route', 'toastr'],
 
     props: {
         video: {
@@ -178,7 +178,7 @@ export default {
                 }).catch(this.errorHandler);
         },
         removeTag(tag) {
-            const index = this.video.tagList.findIndex(id => id === tag.id);
+            const index = this.video.tagList.findIndex((id) => id === tag.id);
             this.video.tagList.splice(index, 1);
         },
     },

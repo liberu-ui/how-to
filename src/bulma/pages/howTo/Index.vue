@@ -30,7 +30,7 @@
                             file-key="video"
                             @upload-successful="reset(); getVideos()"
                             v-if="addingVideo">
-                            <template v-slot:control="{ controlEvents }">
+                            <template #:control="{ controlEvents }">
                                 <a v-on="controlEvents">
                                     <span class="file-cta">
                                         <span class="file-icon">
@@ -183,11 +183,11 @@ library.add([faPlus, faUpload, faBan, faCheck, faPencilAlt, faTags]);
 export default {
     name: 'Index',
 
-    inject: ['canAccess', 'errorHandler', 'i18n', 'route', 'toastr'],
-
     directives: { focus },
 
     components: { Uploader, HowToVideo },
+
+    inject: ['canAccess', 'errorHandler', 'i18n', 'route', 'toastr'],
 
     data: () => ({
         videos: [],
