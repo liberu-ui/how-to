@@ -1,13 +1,13 @@
 <template>
     <card>
         <card-header>
-            <template #:title>
+            <template #title>
                 <span class="icon is-small mr-1">
                     <fa icon="video"/>
                 </span>
                 {{ video.name }}
             </template>
-            <template #:controls>
+            <template #controls>
                 <card-control v-tooltip="video.description">
                     <span class="icon">
                         <fa icon="info-circle"/>
@@ -19,7 +19,7 @@
                         :params="{ videoId: video.id }"
                         file-key="poster"
                         @upload-successful="video.poster = $event">
-                        <template #:control="{ controlEvents }">
+                        <template #control="{ controlEvents }">
                             <span class="icon"
                                 v-on="controlEvents">
                                 <fa :icon="['far', 'image']"/>
