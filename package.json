@@ -1,6 +1,6 @@
 {
   "name": "@enso-ui/how-to",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "Basic how-to package",
   "main": "src/bulma/pages/howTo/Index.vue",
   "scripts": {
@@ -28,6 +28,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.2",
     "@fortawesome/free-regular-svg-icons": "^5.2.0",
     "@fortawesome/free-solid-svg-icons": "^5.2.0",
+    "@fortawesome/vue-fontawesome": "3.0.0-5",
     "v-tooltip": "4.0.0-alpha.1",
     "video.js": "^7.0",
     "vue": "^3.0",

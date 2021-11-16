@@ -170,6 +170,7 @@
 </template>
 
 <script>
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faPlus, faUpload, faBan, faCheck, faPencilAlt, faTags,
@@ -185,7 +186,7 @@ export default {
 
     directives: { focus },
 
-    components: { Uploader, HowToVideo },
+    components: { Fa, HowToVideo, Uploader, },
 
     inject: ['canAccess', 'errorHandler', 'i18n', 'route', 'toastr'],
 

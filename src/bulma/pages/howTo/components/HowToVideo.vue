@@ -91,6 +91,7 @@
 
 <script>
 import { VTooltip } from 'v-tooltip';
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faInfo, faTags, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt, faEdit, faImage } from '@fortawesome/free-regular-svg-icons';
@@ -115,13 +116,14 @@ export default {
         Card,
         CardControl,
         Confirmation,
-        videoPlayer,
         CardHeader,
         CardCollapse,
         CardFooter,
         CardFooterItem,
         CardContent,
+        Fa,
         Uploader,
+        videoPlayer,
     },
 
     inject: ['canAccess', 'errorHandler', 'i18n', 'route', 'toastr'],
