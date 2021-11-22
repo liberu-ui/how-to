@@ -1,7 +1,7 @@
 <template>
     <div class="columns is-reverse-mobile">
         <div class="column is-three-quarters-desktop is-full-touch">
-            <div class="columns animated fadeInDown"
+            <div class="columns animate__animated animate__fadeInDown"
                 v-if="addingVideo || editingVideo">
                 <div class="column is-narrow">
                     <div class="control">
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="column is-narrow is-flex">
-                    <div class="control animated fadeIn"
+                    <div class="control animate__animated animate__fadeIn"
                         v-if="video.name">
                         <uploader :url="uploadLink"
                             :params="video"
@@ -51,7 +51,7 @@
                             </span>
                         </a>
                     </div>
-                    <div class="control animated fadeIn"
+                    <div class="control animate__animated animate__fadeIn"
                         v-if="addingVideo || editingVideo">
                         <a class="button is-danger is-outlined"
                             @click="reset()">
@@ -170,6 +170,7 @@
 </template>
 
 <script>
+import 'animate.css';
 import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
