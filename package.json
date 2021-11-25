@@ -30,7 +30,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.2.0",
     "@fortawesome/free-solid-svg-icons": "^5.2.0",
     "@fortawesome/vue-fontawesome": "3.0.0-5",
-    "v-tooltip": "4.0.0-alpha.1",
+    "v-tooltip": "4.0.0-alpha.2",
     "video.js": "^7.0",
     "vue": "^3.0",
     "vue-video-player": "^5.0"
