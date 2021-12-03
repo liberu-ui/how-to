@@ -140,6 +140,8 @@ export default {
         },
     },
 
+    emits: ['delete',  'edit', 'start-tagging', 'stop-tagging'],
+
     data: () => ({
         tagging: false,
     }),
