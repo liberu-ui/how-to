@@ -72,7 +72,7 @@
             <div class="columns is-multiline">
                 <div class="column is-half"
                     v-for="(vid, index) in filteredVideos"
-                    :key="index">
+                    :key="vid.id">
                 <how-to-video class="is-rounded raises-on-hover"
                     :video="vid"
                     :tags="tags"

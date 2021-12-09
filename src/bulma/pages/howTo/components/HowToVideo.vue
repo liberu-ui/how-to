@@ -40,16 +40,14 @@
                     </span>
                 </card-control>
                 <card-control v-if="canAccess('howTo.posters.destroy') && video.poster">
-                    <confirmation @confirm="destroyPoster"
-                        v-tooltip="i18n('Remove poster')">
+                    <confirmation @confirm="destroyPoster">
                         <span class="icon is-small">
                             <fa :icon="['far', 'trash-alt']"/>
                         </span>
                     </confirmation>
                 </card-control>
                 <card-control v-else-if="canAccess('howTo.videos.destroy')">
-                    <confirmation @confirm="destroyVideo"
-                        v-tooltip="i18n('Delete video')">
+                    <confirmation @confirm="destroyVideo">
                         <span class="icon is-small">
                             <fa :icon="['far', 'trash-alt']"/>
                         </span>
@@ -96,8 +94,7 @@ import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faInfo, faTags, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt, faEdit, faImage } from '@fortawesome/free-regular-svg-icons';
-import { videoPlayer } from 'vue-video-player';
-import 'vue-video-player/src/custom-theme.css';
+import VideoPlayer from './VideoPlayer.vue';
 import {
     Card, CardHeader, CardCollapse, CardControl, CardContent,
     CardFooter, CardFooterItem,
@@ -124,7 +121,7 @@ export default {
         CardContent,
         Fa,
         Uploader,
-        videoPlayer,
+        VideoPlayer,
     },
 
     inject: ['canAccess', 'errorHandler', 'i18n', 'route', 'toastr'],
