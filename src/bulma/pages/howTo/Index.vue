@@ -201,7 +201,7 @@ export default {
 
     components: { Fa, Fade, HowToVideo, Uploader, },
 
-    inject: ['canAccess', 'errorHandler', 'i18n', 'route', 'toastr'],
+    inject: ['canAccess', 'errorHandler', 'http', 'i18n', 'route', 'toastr'],
 
     data: () => ({
         videos: [],
@@ -265,12 +265,12 @@ export default {
 
     methods: {
         getVideos() {
-            axios.get(this.route('howTo.videos.index'))
+            this.http.get(this.route('howTo.videos.index'))
                 .then(({ data }) => (this.videos = data))
                 .catch(this.errorHandler);
         },
         getTags() {
-            axios.get(this.route('howTo.tags.index'))
+            this.http.get(this.route('howTo.tags.index'))
                 .then(({ data }) => (this.tags = data))
                 .catch(this.errorHandler);
         },
@@ -305,26 +305,26 @@ export default {
                 return;
             }
 
-            axios.post(this.route('howTo.tags.store'), { name: this.query })
+            this.http.post(this.route('howTo.tags.store'), { name: this.query })
                 .then(({ data }) => {
                     this.tags.push(data);
                     this.query = '';
                 }).catch(this.errorHandler);
         },
         updateTag() {
-            axios.patch(this.route('howTo.tags.update', this.selectedTag.id), {
+            this.http.patch(this.route('howTo.tags.update', this.selectedTag.id), {
                 name: this.selectedTag.name,
             }).catch(this.errorHandler);
         },
         deleteTag(tagId) {
-            axios.delete(this.route('howTo.tags.destroy', tagId))
+            this.http.delete(this.route('howTo.tags.destroy', tagId))
                 .then(() => {
                     const index = this.tags.findIndex(({ id }) => id === tagId);
                     this.tags.splice(index, 1);
                 }).catch(this.errorHandler);
         },
         update() {
-            axios.patch(this.route('howTo.videos.update', this.video.id), this.video)
+            this.http.patch(this.route('howTo.videos.update', this.video.id), this.video)
                 .then(({ data }) => {
                     this.toastr.success(data.message);
                     this.reset();

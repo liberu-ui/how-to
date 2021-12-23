@@ -124,7 +124,7 @@ export default {
         VideoPlayer,
     },
 
-    inject: ['canAccess', 'errorHandler', 'i18n', 'route', 'toastr'],
+    inject: ['canAccess', 'errorHandler', 'http', 'i18n', 'route', 'toastr'],
 
     props: {
         video: {
@@ -166,14 +166,14 @@ export default {
             };
         },
         destroyPoster() {
-            axios.delete(this.route('howTo.posters.destroy', this.video.poster.id))
+            this.http.delete(this.route('howTo.posters.destroy', this.video.poster.id))
                 .then(({ data }) => {
                     this.toastr.success(data.message);
                     this.video.poster = null;
                 }).catch(this.errorHandler);
         },
         destroyVideo() {
-            axios.delete(this.route('howTo.videos.destroy', this.video.id))
+            this.http.delete(this.route('howTo.videos.destroy', this.video.id))
                 .then(({ data }) => {
                     this.toastr.success(data.message);
                     this.$emit('delete');
