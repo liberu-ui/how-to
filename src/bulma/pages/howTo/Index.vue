@@ -199,7 +199,9 @@ export default {
 
     directives: { focus },
 
-    components: { Fa, Fade, HowToVideo, Uploader, },
+    components: {
+        Fa, Fade, HowToVideo, Uploader,
+    },
 
     inject: ['canAccess', 'errorHandler', 'http', 'i18n', 'route', 'toastr'],
 
@@ -236,7 +238,7 @@ export default {
                 ? this.videos
                 : this.videos.filter(({ tagList }) => tagList
                     .filter(
-                        (tagId) => this.selectedTags.findIndex(({ id }) => tagId === id) !== -1,
+                        tagId => this.selectedTags.findIndex(({ id }) => tagId === id) !== -1,
                     ).length === this.selectedTags.length);
         },
         filteredTags() {
@@ -295,7 +297,7 @@ export default {
             this.deselectTags();
         },
         deselectTags() {
-            this.tags.map((tag) => {
+            this.tags.map(tag => {
                 tag.selected = false;
                 return tag;
             });

@@ -28,7 +28,7 @@
     "@enso-ui/transitions": "^2.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.2",
     "@fortawesome/free-regular-svg-icons": "^5.2.0",
-    "@fortawesome/free-solid-svg-icons": "^5.2.0",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/vue-fontawesome": "3.0.0-5",
     "v-tooltip": "^4.0.0-beta.2",
     "video.js": "^7.0",

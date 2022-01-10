@@ -35,7 +35,8 @@
                 </card-control>
                 <card-control v-if="canAccess('howTo.videos.update')">
                     <span class="icon"
-                        @click="tagging = !tagging; $emit(tagging ? 'start-tagging' : 'stop-tagging')">
+                        @click="tagging = !tagging;
+                            $emit(tagging ? 'start-tagging' : 'stop-tagging')">
                         <fa :icon="tagging ? 'check' : 'tags'"/>
                     </span>
                 </card-control>
@@ -94,13 +95,13 @@ import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faInfo, faTags, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt, faEdit, faImage } from '@fortawesome/free-regular-svg-icons';
-import VideoPlayer from './VideoPlayer.vue';
 import {
     Card, CardHeader, CardCollapse, CardControl, CardContent,
     CardFooter, CardFooterItem,
 } from '@enso-ui/card/bulma';
 import Confirmation from '@enso-ui/confirmation/bulma';
 import { Uploader } from '@enso-ui/uploader';
+import VideoPlayer from './VideoPlayer.vue';
 import 'video.js/dist/video-js.css';
 
 library.add([faTrashAlt, faInfo, faTags, faEdit, faImage, faInfoCircle]);
@@ -137,7 +138,7 @@ export default {
         },
     },
 
-    emits: ['delete',  'edit', 'start-tagging', 'stop-tagging'],
+    emits: ['delete', 'edit', 'start-tagging', 'stop-tagging'],
 
     data: () => ({
         tagging: false,
@@ -180,7 +181,7 @@ export default {
                 }).catch(this.errorHandler);
         },
         removeTag(tag) {
-            const index = this.video.tagList.findIndex((id) => id === tag.id);
+            const index = this.video.tagList.findIndex(id => id === tag.id);
             this.video.tagList.splice(index, 1);
         },
     },
