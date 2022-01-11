@@ -1,85 +1,92 @@
 <template>
     <div class="columns is-reverse-mobile">
         <div class="column is-three-quarters-desktop is-full-touch">
-            <div class="columns animated fadeInDown"
-                v-if="addingVideo || editingVideo">
-                <div class="column is-narrow">
-                    <div class="control">
-                        <input class="input"
-                            v-focus
-                            type="text"
-                            :placeholder="i18n('Video name')"
-                            v-model="video.name">
+            <fade enter="down"
+                leave="up">
+                <div class="columns"
+                    v-if="addingVideo || editingVideo">
+                    <div class="column is-narrow">
+                        <div class="control">
+                            <input class="input"
+                                v-focus
+                                type="text"
+                                :placeholder="i18n('Video name')"
+                                v-model="video.name">
+                        </div>
                     </div>
-                </div>
-                <div class="column">
-                    <div class="control is-expanded">
-                        <textarea class="textarea"
-                            rows="2"
-                            type="text"
-                            :placeholder="i18n('Video description')"
-                            v-model="video.description"/>
+                    <div class="column">
+                        <div class="control is-expanded">
+                            <textarea class="textarea"
+                                rows="2"
+                                type="text"
+                                :placeholder="i18n('Video description')"
+                                v-model="video.description"/>
+                        </div>
                     </div>
-                </div>
-                <div class="column is-narrow is-flex">
-                    <div class="control animated fadeIn"
-                        v-if="video.name">
-                        <uploader :url="uploadLink"
-                            :params="video"
-                            :file-size-limit="20000000"
-                            file-key="video"
-                            @upload-successful="reset(); getVideos()"
-                            v-if="addingVideo">
-                            <template v-slot:control="{ controlEvents }">
-                                <a v-on="controlEvents">
-                                    <span class="file-cta">
-                                        <span class="file-icon">
-                                            <fa icon="upload"/>
-                                        </span>
-                                        <span class="file-label">
-                                            {{ i18n('Video') }}…
-                                        </span>
+                    <div class="column is-narrow is-flex">
+                        <fade>
+                            <div class="control"
+                                 v-if="video.name">
+                                <uploader :url="uploadLink"
+                                    :params="video"
+                                    :file-size-limit="20000000"
+                                    file-key="video"
+                                    @upload-successful="reset(); getVideos()"
+                                    v-if="addingVideo">
+                                    <template #control="{ controlEvents }">
+                                        <a v-on="controlEvents">
+                                            <span class="file-cta">
+                                                  <span class="file-icon">
+                                                    <fa icon="upload"/>
+                                                  </span>
+                                                  <span class="file-label">
+                                                    {{ i18n('Video') }}…
+                                                  </span>
+                                            </span>
+                                        </a>
+                                    </template>
+                                </uploader>
+                                <a class="button is-outlined is-success"
+                                    @click="video = video; update()"
+                                    v-if="editingVideo">
+                                    <span class="icon">
+                                        <fa icon="check"/>
                                     </span>
                                 </a>
-                            </template>
-                        </uploader>
-                        <a class="button is-outlined is-success"
-                            @click="video = video; update()"
-                            v-if="editingVideo">
-                            <span class="icon">
-                                <fa icon="check"/>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="control animated fadeIn"
-                        v-if="addingVideo || editingVideo">
-                        <a class="button is-danger is-outlined"
-                            @click="reset()">
-                            <span class="icon">
-                                <fa icon="ban"/>
-                            </span>
-                        </a>
+                            </div>
+                        </fade>
+                        <fade>
+                            <div class="control"
+                                v-if="addingVideo || editingVideo">
+                                <a class="button is-danger is-outlined"
+                                    @click="reset()">
+                                    <span class="icon">
+                                        <fa icon="ban"/>
+                                    </span>
+                                </a>
+                            </div>
+                        </fade>
                     </div>
                 </div>
-            </div>
+            </fade>
             <div class="columns is-multiline">
                 <div class="column is-half"
                     v-for="(vid, index) in filteredVideos"
-                    :key="index">
-                    <how-to-video class="is-rounded raises-on-hover"
-                        :video="vid"
-                        :tags="tags"
-                        @start-tagging="video = vid; taggingId = video.id"
-                        @stop-tagging="video = vid; taggingId = null; update()"
-                        @delete="videos.splice(index, 1)"
-                        @update="video = vid; update()"
-                        @edit="video = vid; editingVideo = true;"/>
+                    :key="vid.id">
+                <how-to-video class="is-rounded raises-on-hover"
+                    :video="vid"
+                    :tags="tags"
+                    @start-tagging="video = vid; taggingId = video.id"
+                    @stop-tagging="video = vid; taggingId = null; update()"
+                    @delete="videos.splice(index, 1)"
+                    @update="video = vid; update()"
+                    @edit="video = vid; editingVideo = true;"/>
                 </div>
             </div>
         </div>
         <div class="column is-one-quarter">
             <a class="button is-info is-fullwidth mb-2"
-                :disabled="addingVideo || editingVideo"
+                :disabled="addDisabled"
                 @click="addingVideo = true"
                 v-if="canAccess('howTo.videos.store')">
                 <span>
@@ -146,16 +153,16 @@
                     v-else>
                 <div class="field is-grouped is-grouped-multiline mt-2">
                     <div class="control"
-                        v-for="tag in filteredTags"
-                        :key="tag.id">
+                         v-for="tag in filteredTags"
+                         :key="tag.id">
                         <div class="tags has-addons">
                             <span :class="[
-                                    'tag is-white is-clickable',
-                                    { 'is-bold' : tag.selected }
+                                'tag is-white is-clickable',
+                                { 'is-bold' : tag.selected }
                                 ]"
                                 @click="taggingId
-                                    ? video.tagList.push(tag.id)
-                                    : tag.selected = !tag.selected">
+                                ? video.tagList.push(tag.id)
+                                : tag.selected = !tag.selected">
                                 {{ tag.name }}
                             </span>
                             <a class="tag is-delete is-white"
@@ -170,12 +177,19 @@
 </template>
 
 <script>
+import { focus } from '@enso-ui/directives';
+import { Fade } from '@enso-ui/transitions';
+import { Uploader } from '@enso-ui/uploader/bulma';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-    faPlus, faUpload, faBan, faCheck, faPencilAlt, faTags,
+    faBan,
+    faCheck,
+    faPencilAlt,
+    faPlus,
+    faTags,
+    faUpload,
 } from '@fortawesome/free-solid-svg-icons';
-import { focus } from '@enso-ui/directives';
-import { Uploader } from '@enso-ui/uploader/bulma';
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import HowToVideo from './components/HowToVideo.vue';
 
 library.add([faPlus, faUpload, faBan, faCheck, faPencilAlt, faTags]);
@@ -183,11 +197,13 @@ library.add([faPlus, faUpload, faBan, faCheck, faPencilAlt, faTags]);
 export default {
     name: 'Index',
 
-    inject: ['canAccess', 'errorHandler', 'i18n', 'route', 'toastr'],
-
     directives: { focus },
 
-    components: { Uploader, HowToVideo },
+    components: {
+        Fa, Fade, HowToVideo, Uploader,
+    },
+
+    inject: ['canAccess', 'errorHandler', 'http', 'i18n', 'route', 'toastr'],
 
     data: () => ({
         videos: [],
@@ -205,6 +221,11 @@ export default {
     }),
 
     computed: {
+        addDisabled() {
+            return this.addingVideo || this.editingVideo
+                ? true
+                : null;
+        },
         uploadLink() {
             return this.route('howTo.videos.store');
         },
@@ -217,7 +238,7 @@ export default {
                 ? this.videos
                 : this.videos.filter(({ tagList }) => tagList
                     .filter(
-                        (tagId) => this.selectedTags.findIndex(({ id }) => tagId === id) !== -1,
+                        tagId => this.selectedTags.findIndex(({ id }) => tagId === id) !== -1,
                     ).length === this.selectedTags.length);
         },
         filteredTags() {
@@ -246,12 +267,12 @@ export default {
 
     methods: {
         getVideos() {
-            axios.get(this.route('howTo.videos.index'))
+            this.http.get(this.route('howTo.videos.index'))
                 .then(({ data }) => (this.videos = data))
                 .catch(this.errorHandler);
         },
         getTags() {
-            axios.get(this.route('howTo.tags.index'))
+            this.http.get(this.route('howTo.tags.index'))
                 .then(({ data }) => (this.tags = data))
                 .catch(this.errorHandler);
         },
@@ -276,7 +297,7 @@ export default {
             this.deselectTags();
         },
         deselectTags() {
-            this.tags.map((tag) => {
+            this.tags.map(tag => {
                 tag.selected = false;
                 return tag;
             });
@@ -286,26 +307,26 @@ export default {
                 return;
             }
 
-            axios.post(this.route('howTo.tags.store'), { name: this.query })
+            this.http.post(this.route('howTo.tags.store'), { name: this.query })
                 .then(({ data }) => {
                     this.tags.push(data);
                     this.query = '';
                 }).catch(this.errorHandler);
         },
         updateTag() {
-            axios.patch(this.route('howTo.tags.update', this.selectedTag.id), {
+            this.http.patch(this.route('howTo.tags.update', this.selectedTag.id), {
                 name: this.selectedTag.name,
             }).catch(this.errorHandler);
         },
         deleteTag(tagId) {
-            axios.delete(this.route('howTo.tags.destroy', tagId))
+            this.http.delete(this.route('howTo.tags.destroy', tagId))
                 .then(() => {
                     const index = this.tags.findIndex(({ id }) => id === tagId);
                     this.tags.splice(index, 1);
                 }).catch(this.errorHandler);
         },
         update() {
-            axios.patch(this.route('howTo.videos.update', this.video.id), this.video)
+            this.http.patch(this.route('howTo.videos.update', this.video.id), this.video)
                 .then(({ data }) => {
                     this.toastr.success(data.message);
                     this.reset();

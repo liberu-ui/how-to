@@ -1,13 +1,13 @@
 <template>
     <card>
         <card-header>
-            <template v-slot:title>
+            <template #title>
                 <span class="icon is-small mr-1">
                     <fa icon="video"/>
                 </span>
                 {{ video.name }}
             </template>
-            <template v-slot:controls>
+            <template #controls>
                 <card-control v-tooltip="video.description">
                     <span class="icon">
                         <fa icon="info-circle"/>
@@ -19,7 +19,7 @@
                         :params="{ videoId: video.id }"
                         file-key="poster"
                         @upload-successful="video.poster = $event">
-                        <template v-slot:control="{ controlEvents }">
+                        <template #control="{ controlEvents }">
                             <span class="icon"
                                 v-on="controlEvents">
                                 <fa :icon="['far', 'image']"/>
@@ -35,21 +35,20 @@
                 </card-control>
                 <card-control v-if="canAccess('howTo.videos.update')">
                     <span class="icon"
-                        @click="tagging = !tagging; $emit(tagging ? 'start-tagging' : 'stop-tagging')">
+                        @click="tagging = !tagging;
+                            $emit(tagging ? 'start-tagging' : 'stop-tagging')">
                         <fa :icon="tagging ? 'check' : 'tags'"/>
                     </span>
                 </card-control>
                 <card-control v-if="canAccess('howTo.posters.destroy') && video.poster">
-                    <confirmation @confirm="destroyPoster"
-                        v-tooltip="i18n('Remove poster')">
+                    <confirmation @confirm="destroyPoster">
                         <span class="icon is-small">
                             <fa :icon="['far', 'trash-alt']"/>
                         </span>
                     </confirmation>
                 </card-control>
                 <card-control v-else-if="canAccess('howTo.videos.destroy')">
-                    <confirmation @confirm="destroyVideo"
-                        v-tooltip="i18n('Delete video')">
+                    <confirmation @confirm="destroyVideo">
                         <span class="icon is-small">
                             <fa :icon="['far', 'trash-alt']"/>
                         </span>
@@ -90,18 +89,19 @@
 </template>
 
 <script>
+import 'v-tooltip/dist/v-tooltip.css';
 import { VTooltip } from 'v-tooltip';
+import { FontAwesomeIcon as Fa } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faInfo, faTags, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt, faEdit, faImage } from '@fortawesome/free-regular-svg-icons';
-import { videoPlayer } from 'vue-video-player';
-import 'vue-video-player/src/custom-theme.css';
 import {
     Card, CardHeader, CardCollapse, CardControl, CardContent,
     CardFooter, CardFooterItem,
 } from '@enso-ui/card/bulma';
 import Confirmation from '@enso-ui/confirmation/bulma';
 import { Uploader } from '@enso-ui/uploader';
+import VideoPlayer from './VideoPlayer.vue';
 import 'video.js/dist/video-js.css';
 
 library.add([faTrashAlt, faInfo, faTags, faEdit, faImage, faInfoCircle]);
@@ -109,22 +109,23 @@ library.add([faTrashAlt, faInfo, faTags, faEdit, faImage, faInfoCircle]);
 export default {
     name: 'HowToVideo',
 
-    inject: ['canAccess', 'errorHandler', 'i18n', 'route', 'toastr'],
-
     directives: { tooltip: VTooltip },
 
     components: {
         Card,
         CardControl,
         Confirmation,
-        videoPlayer,
         CardHeader,
         CardCollapse,
         CardFooter,
         CardFooterItem,
         CardContent,
+        Fa,
         Uploader,
+        VideoPlayer,
     },
+
+    inject: ['canAccess', 'errorHandler', 'http', 'i18n', 'route', 'toastr'],
 
     props: {
         video: {
@@ -136,6 +137,8 @@ export default {
             required: true,
         },
     },
+
+    emits: ['delete', 'edit', 'start-tagging', 'stop-tagging'],
 
     data: () => ({
         tagging: false,
@@ -164,14 +167,14 @@ export default {
             };
         },
         destroyPoster() {
-            axios.delete(this.route('howTo.posters.destroy', this.video.poster.id))
+            this.http.delete(this.route('howTo.posters.destroy', this.video.poster.id))
                 .then(({ data }) => {
                     this.toastr.success(data.message);
                     this.video.poster = null;
                 }).catch(this.errorHandler);
         },
         destroyVideo() {
-            axios.delete(this.route('howTo.videos.destroy', this.video.id))
+            this.http.delete(this.route('howTo.videos.destroy', this.video.id))
                 .then(({ data }) => {
                     this.toastr.success(data.message);
                     this.$emit('delete');
