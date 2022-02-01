@@ -14,7 +14,7 @@
                     </span>
                 </card-control>
                 <card-control v-if="!video.poster && canAccess('howTo.posters.store')">
-                    <uploader class="pt-1"
+                    <enso-uploader class="pt-1"
                         :url="route('howTo.posters.store')"
                         :params="{ videoId: video.id }"
                         file-key="poster"
@@ -25,7 +25,7 @@
                                 <fa :icon="['far', 'image']"/>
                             </span>
                         </template>
-                    </uploader>
+                    </enso-uploader>
                 </card-control>
                 <card-control v-if="canAccess('howTo.videos.update')">
                     <span class="icon"
@@ -100,7 +100,7 @@ import {
     CardFooter, CardFooterItem,
 } from '@enso-ui/card/bulma';
 import Confirmation from '@enso-ui/confirmation/bulma';
-import { Uploader } from '@enso-ui/uploader';
+import { EnsoUploader } from '@enso-ui/uploader';
 import VideoPlayer from './VideoPlayer.vue';
 import 'video.js/dist/video-js.css';
 
@@ -121,7 +121,7 @@ export default {
         CardFooterItem,
         CardContent,
         Fa,
-        Uploader,
+        EnsoUploader,
         VideoPlayer,
     },
 
