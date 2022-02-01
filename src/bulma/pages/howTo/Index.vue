@@ -27,7 +27,7 @@
                         <fade>
                             <div class="control"
                                  v-if="video.name">
-                                <uploader :url="uploadLink"
+                                <enso-uploader :url="uploadLink"
                                     :params="video"
                                     :file-size-limit="20000000"
                                     file-key="video"
@@ -45,7 +45,7 @@
                                             </span>
                                         </a>
                                     </template>
-                                </uploader>
+                                </enso-uploader>
                                 <a class="button is-outlined is-success"
                                     @click="video = video; update()"
                                     v-if="editingVideo">
@@ -179,7 +179,7 @@
 <script>
 import { focus } from '@enso-ui/directives';
 import { Fade } from '@enso-ui/transitions';
-import { Uploader } from '@enso-ui/uploader/bulma';
+import { EnsoUploader } from '@enso-ui/uploader/bulma';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faBan,
@@ -200,7 +200,7 @@ export default {
     directives: { focus },
 
     components: {
-        Fa, Fade, HowToVideo, Uploader,
+        Fa, Fade, HowToVideo, EnsoUploader,
     },
 
     inject: ['canAccess', 'errorHandler', 'http', 'i18n', 'route', 'toastr'],
