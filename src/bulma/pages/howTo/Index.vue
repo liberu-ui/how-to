@@ -29,7 +29,7 @@
                                  v-if="video.name">
                                 <enso-uploader :url="uploadLink"
                                     :params="video"
-                                    :file-size-limit="20000000"
+                                    :file-size-limit="25*1024*1024"
                                     file-key="video"
                                     @upload-successful="reset(); getVideos()"
                                     v-if="addingVideo">
