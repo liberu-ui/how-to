@@ -177,9 +177,9 @@
 </template>
 
 <script>
-import { focus } from '@enso-ui/directives';
-import { Fade } from '@enso-ui/transitions';
-import { EnsoUploader } from '@enso-ui/uploader/bulma';
+import { focus } from '@liberu-ui/directives';
+import { Fade } from '@liberu-ui/transitions';
+import { EnsoUploader } from '@liberu-ui/uploader/bulma';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faBan,
