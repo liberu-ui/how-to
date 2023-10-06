@@ -98,9 +98,9 @@ import { faTrashAlt, faEdit, faImage } from '@fortawesome/free-regular-svg-icons
 import {
     Card, CardHeader, CardCollapse, CardControl, CardContent,
     CardFooter, CardFooterItem,
-} from '@enso-ui/card/bulma';
-import Confirmation from '@enso-ui/confirmation/bulma';
-import { EnsoUploader } from '@enso-ui/uploader';
+} from '@liberu-ui/card/bulma';
+import Confirmation from '@liberu-ui/confirmation/bulma';
+import { EnsoUploader } from '@liberu-ui/uploader';
 import VideoPlayer from './VideoPlayer.vue';
 import 'video.js/dist/video-js.css';
 
