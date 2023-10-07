@@ -14,7 +14,7 @@
 
 <script>
 // lib
-import _videojs from 'video.ts';
+import _videojs from 'video.js';
 
 const videojs = window.videojs || _videojs;
 
