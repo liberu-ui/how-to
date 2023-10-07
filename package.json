@@ -1,6 +1,6 @@
 {
   "name": "@liberu-ui/how-to",
-  "version": "5.0.7",
+  "version": "5.0.8",
   "description": "Basic how-to package",
   "main": "src/bulma/pages/howTo/Index.vue",
   "scripts": {
