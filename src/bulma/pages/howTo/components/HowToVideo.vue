@@ -102,7 +102,7 @@ import {
 import Confirmation from '@liberu-ui/confirmation/bulma';
 import { EnsoUploader } from '@liberu-ui/uploader';
 import VideoPlayer from './VideoPlayer.vue';
-import 'video.js/dist/video-js.css';
+import 'video.ts/dist/video-js.css';
 
 library.add([faTrashAlt, faInfo, faTags, faEdit, faImage, faInfoCircle]);
 
